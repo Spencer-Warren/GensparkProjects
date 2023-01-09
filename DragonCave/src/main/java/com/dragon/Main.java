@@ -1,8 +1,14 @@
-package org.example;
+package com.dragon;
 
 import java.util.Scanner;
 
 public class Main {
+    private final static Scanner consoleIn = new Scanner(System.in);
+    public static int getResponse() {
+        int choice = Integer.parseInt(consoleIn.nextLine());
+        System.out.println("\n");
+        return choice;
+    }
     public static void main(String[] args) {
         String intro = "You are in a land full of dragons. In front of you,\n" +
                         "you see two caves. In one cave, the dragon is friendly\n" +
@@ -20,13 +26,10 @@ public class Main {
                         "A large dragon jumps out in front of you! He opens his jaws and...\n" +
                         "Offers you a handful of gold!\n";
 
-        Scanner consoleIn = new Scanner(System.in);
         // Intro string
         System.out.println(intro);
-        // Read user choice
-        int choice = Integer.parseInt(consoleIn.nextLine());
 
-        System.out.println("\n");
+        int choice = getResponse();
 
         if (choice == 1) {
             System.out.println(path1);

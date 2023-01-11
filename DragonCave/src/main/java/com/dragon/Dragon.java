@@ -15,7 +15,7 @@ public class Dragon {
         System.out.println("\n");
         return choice;
     }
-    private static String getCaveText(int choice) {
+    public static String getCaveText(int choice) {
         String path1 = "You approach the cave...\n" +
                 "It is dark and spooky...\n" +
                 "A large dragon jumps out in front of you! He opens his jaws and...\n" +

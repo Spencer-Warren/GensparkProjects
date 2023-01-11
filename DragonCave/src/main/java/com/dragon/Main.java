@@ -5,7 +5,13 @@ import java.util.Scanner;
 public class Main {
     private final static Scanner consoleIn = new Scanner(System.in);
     public static int getResponse() {
-        int choice = Integer.parseInt(consoleIn.nextLine());
+        int choice = 0;
+        try {
+            choice = Integer.parseInt(consoleIn.nextLine());
+        }
+        catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println("\n");
         return choice;
     }

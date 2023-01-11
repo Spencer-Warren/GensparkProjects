@@ -8,13 +8,25 @@ public class Main {
     private final static Scanner consoleIn = new Scanner(System.in);
     public static int getConsoleInt() {
         System.out.println();
-        int choice = Integer.parseInt(consoleIn.nextLine());
+        int choice = 0;
+        try {
+            choice = Integer.parseInt(consoleIn.nextLine());
+        }
+        catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println();
         return choice;
     }
     public static String getConsoleString() {
         System.out.println();
-        String choice = consoleIn.nextLine();
+        String choice = "";
+        try {
+            choice = consoleIn.nextLine();
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println();
         return choice;
     }

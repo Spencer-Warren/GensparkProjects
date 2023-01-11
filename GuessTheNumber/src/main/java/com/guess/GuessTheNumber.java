@@ -1,24 +1,25 @@
 package com.guess;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Main {
-    private final static Random randomNumberGenerator = new Random();
-    private final static Scanner consoleIn = new Scanner(System.in);
-    public static int getConsoleInt() {
+public class GuessTheNumber {
+    public Scanner consoleIn = new Scanner(System.in);
+    public Random randomNumberGenerator = new Random();
+    public int getConsoleInt() {
         System.out.println();
         int choice = 0;
         try {
             choice = Integer.parseInt(consoleIn.nextLine());
         }
-        catch (NumberFormatException e) {
+        catch (NumberFormatException | InputMismatchException e) {
             System.out.println(e.getMessage());
         }
         System.out.println();
         return choice;
     }
-    public static String getConsoleString() {
+    public String getConsoleString() {
         System.out.println();
         String choice = "";
         try {
@@ -30,7 +31,7 @@ public class Main {
         System.out.println();
         return choice;
     }
-    public static void guessTheNumber(String name) {
+    public void guessTheNumber(String name) {
 
         int correctNumber = randomNumberGenerator.nextInt(21);
         int usersGuess;
@@ -45,15 +46,15 @@ public class Main {
                 System.out.println("Your guess is too low.");
             }
             else {
-                System.out.printf("Good job, %s! You guessed my number in %d guesses!\n", name, numberOfGuesses);
+                System.out.printf("Good job, %s! You guessed my number in %d guesses!\r\n", name, numberOfGuesses);
             }
         } while (usersGuess != correctNumber);
     }
-    public static void main(String[] args) {
+    public void run() {
         System.out.println("Hello! What is your name?");
         String name = getConsoleString();
 
-        System.out.printf("Well, %s, I am thinking of a number between 1 and 20\n", name);
+        System.out.printf("Well, %s, I am thinking of a number between 1 and 20\r\n", name);
         String userChoice;
         do {
             guessTheNumber(name);
@@ -61,5 +62,8 @@ public class Main {
             userChoice = getConsoleString().trim();
         }
         while (!userChoice.equals("n"));
+    }
+    public static void main(String[] args) {
+        new GuessTheNumber().run();
     }
 }

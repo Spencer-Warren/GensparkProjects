@@ -3,7 +3,7 @@ package com.dragon;
 import java.util.Scanner;
 
 public class Dragon {
-    private final static Scanner consoleIn = new Scanner(System.in);
+    private static final Scanner consoleIn = new Scanner(System.in);
     public static int getResponse() {
         int choice = 0;
         try {

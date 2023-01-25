@@ -12,9 +12,8 @@ public class Goblin extends Entity {
      * @param y the y coordinate of the Goblin
      */
     public Goblin(int x, int y) {
-        super(x, y, 5, 1);
-        giveWeapon(new Weapon("Scimitar", 1, 3));
-        tile = 'g';
+        super(x, y, 5, 1, 'G');
+        giveWeapon(new Weapon("Scimitar", 3, 5));
     }
 
     @Override
@@ -26,6 +25,10 @@ public class Goblin extends Entity {
                 ", defense=" + getDefense() +
                 ", weapon=" + getWeapon() +
                 '}';
+    }
+
+    public String getSimpleName() {
+        return "Goblin";
     }
 
 }

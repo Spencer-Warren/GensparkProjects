@@ -5,7 +5,8 @@ public class Ascii {
     {
         // This class should not be instantiated
     }
-    public static final String GOBLIN_BIG = "               pbPPPPPPPPPPPbp\n" +
+    public static final String GOBLIN_BIG =
+            "               pbPPPPPPPPPPPbp\n" +
             "             /b               bb\n" +
             "dbppp       pP                 )b        ppbb\n" +
             " )b    PPPbbbp                 pQbbPPP    pP\n" +
@@ -18,13 +19,9 @@ public class Ascii {
             "             bb               pP\n" +
             "               bbpqqqqppqqqqpP";
 
-    public static final String GOBLIN =
-            "| 0 \n" +
-            "|-|-\n"+
-            "* /\\\n";
-    public static final String HUMAN =
-            " 0  ^\n" +
-            "-|- |\n"+
-            "/\\  \n";
+    public static final String BATTLE_SCENE =
+            " 0  ^   | 0 \n" +
+            "-|- |   |-|-\n"+
+            "/\\     * /\\\n";
 
 }

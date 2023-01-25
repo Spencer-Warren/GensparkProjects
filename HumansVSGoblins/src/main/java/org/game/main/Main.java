@@ -30,7 +30,7 @@ public class Main {
         }
     }
 
-    private void handleUserInput() {
+    public void handleUserInput() {
         String input = UserInput.getUserInput();
         switch (input) {
             case "n":
@@ -59,10 +59,29 @@ public class Main {
 
         while (gameState != GameState.END) {
             clearConsole();
-            System.out.println(Ascii.GOBLIN);
             map.updateMap(characters);
+            map.printMap();
             handleUserInput();
+            testForCombat();
+            if(characters.size() == 1) {
+                gameState = GameState.END;
+                System.out.println("Game Over, you win!");
+                System.out.println("Press enter to exit");
+            }
 
+        }
+    }
+
+    public void testForCombat() {
+        for (Entity character : characters) {
+            if (character != human && character.getX() == human.getX() && character.getY() == human.getY() && !character.equals(human)) {
+                if (!Combat.combat(human, character)) {
+                    gameState = GameState.END;
+                } else {
+                    characters.remove(character);
+                    break;
+                }
+            }
         }
     }
 
@@ -88,8 +107,23 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
-            new Main().runGame();
+    public Map getMap() {
+        return map;
+    }
 
+    public ArrayList<Entity> getCharacters() {
+        return characters;
+    }
+
+    public Human getHuman() {
+        return human;
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public static void main(String[] args) {
+        new Main().runGame();
     }
 }

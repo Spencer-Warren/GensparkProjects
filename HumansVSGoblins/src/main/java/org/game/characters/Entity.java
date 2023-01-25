@@ -10,13 +10,22 @@ public class Entity {
     private int defense;
     private Weapon weapon;
 
-    protected char tile;
+    private char tile;
 
-    public Entity(int x, int y, int health, int defense) {
+    public Entity(int x, int y, int health, int defense, char tile) {
         this.x = x;
         this.y = y;
         this.health = health;
         this.defense = defense;
+        this.tile = tile;
+    }
+
+    public Entity (int x, int y, int health, int defense) {
+        this.x = x;
+        this.y = y;
+        this.health = health;
+        this.defense = defense;
+        this.tile = ' ';
     }
 
     public int attack(Entity target) {
@@ -85,14 +94,31 @@ public class Entity {
             return;
         }
 
-        if (map.getTile(newX, newY) == '.') {
-            x = newX;
-            y = newY;
-            map.setTile(x, y, tile);
-        }
+        x = newX;
+        y = newY;
     }
 
     public char getTile() {
         return tile;
     }
+
+    public String getStatus() {
+        return "Health: " + health + " Defense: " + defense + " Weapon: " + weapon;
+    }
+
+    public String getSimpleName() {
+        return "Entity";
+    }
+
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Entity)) {
+            return false;
+        }
+        Entity e = (Entity) o;
+        return x == e.x && y == e.y && health == e.health && defense == e.defense && weapon.equals(e.weapon);
+    }
+
 }

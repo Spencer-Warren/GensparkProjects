@@ -1,7 +1,9 @@
 package org.game.map;
 
+import org.game.characters.Entity;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -78,6 +80,15 @@ class MapTest {
     void height() {
         Map map = new Map(10, 10);
         assertEquals(10, map.getHeight(), "Height should be 10");
+    }
+
+    @Test
+    void updateMap() {
+        Map map = new Map(10, 10);
+        ArrayList<Entity> entities = new ArrayList<>();
+        entities.add(new Entity(0, 0, 0, 0,  'X'));
+        map.updateMap(entities);
+        assertEquals('X', map.getTile(0, 0), "Tile should be 'X'");
     }
 
 }

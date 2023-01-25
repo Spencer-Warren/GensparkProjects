@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class UserInput {
     private static final String[] VALID_INPUTS = {"n", "w", "s", "e", "q"};
     private static final String[] VALID_INPUTS_DESCRIPTIONS = {"Move North", "Move West", "Move South", "Move East", "Quit Game"};
-    private static final Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
 
     private UserInput()
     {
@@ -31,5 +31,9 @@ public class UserInput {
             }
         }
         return false;
+    }
+    public static void setIn(Scanner newIn)
+    {
+        scanner = newIn;
     }
 }

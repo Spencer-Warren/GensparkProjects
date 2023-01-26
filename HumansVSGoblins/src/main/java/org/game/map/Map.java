@@ -1,8 +1,6 @@
 package org.game.map;
 
 import org.game.characters.Entity;
-import org.game.main.Combat;
-
 import java.util.List;
 import java.util.Random;
 

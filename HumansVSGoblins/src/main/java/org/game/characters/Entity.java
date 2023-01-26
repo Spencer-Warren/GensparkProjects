@@ -10,7 +10,7 @@ public class Entity {
     private int defense;
     private Weapon weapon;
 
-    private char tile;
+    private final char tile;
 
     public Entity(int x, int y, int health, int defense, char tile) {
         this.x = x;
@@ -102,12 +102,9 @@ public class Entity {
         return tile;
     }
 
-    public String getStatus() {
-        return "Health: " + health + " Defense: " + defense + " Weapon: " + weapon;
-    }
-
+    @SuppressWarnings("SameReturnValue")
     public String getSimpleName() {
-        return "Entity";
+        return "";
     }
 
     public boolean equals(Object o) {
@@ -119,6 +116,16 @@ public class Entity {
         }
         Entity e = (Entity) o;
         return x == e.x && y == e.y && health == e.health && defense == e.defense && weapon.equals(e.weapon);
+    }
+
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + x;
+        result = 31 * result + y;
+        result = 31 * result + health;
+        result = 31 * result + defense;
+        result = 31 * result + weapon.hashCode();
+        return result;
     }
 
 }

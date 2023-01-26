@@ -27,6 +27,7 @@ public class Human extends Entity {
                 '}';
     }
 
+    @Override
     public String getSimpleName() {
         return "Human";
     }

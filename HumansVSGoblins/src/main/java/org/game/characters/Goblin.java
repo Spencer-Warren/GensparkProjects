@@ -26,7 +26,7 @@ public class Goblin extends Entity {
                 ", weapon=" + getWeapon() +
                 '}';
     }
-
+    @Override
     public String getSimpleName() {
         return "Goblin";
     }

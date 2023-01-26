@@ -10,30 +10,31 @@ public class Combat {
     {
         // This class should not be instantiated
     }
-    private static boolean isBlocking;
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
-    public static boolean combat(Entity attacker, Entity defender) {
-        Main.clearConsole();
-        System.out.println("Combat has started! You are fighting a goblin!");
+    private static void pause() {
         System.out.println("Press enter to continue....");
         scanner.nextLine();
+    }
 
-        while (attacker.getHealth() > 0 && defender.getHealth() > 0) {
+    public static boolean combat(Entity human, Entity goblin) {
+        Main.clearConsole();
+        System.out.println("Combat has started! You are fighting a goblin!");
+        pause();
+
+        while (human.getHealth() > 0 && goblin.getHealth() > 0) {
             Main.clearConsole();
-            printCombatInfo(attacker, defender);
+            printCombatInfo(human, goblin);
 
-            attack(attacker, defender);
-            if (defender.getHealth() <= 0) {
-                break;
-            }
+            attack(human, goblin);
             scanner.nextLine();
 
-            attack(defender, attacker);
-            if (attacker.getHealth() <= 0) {
+            attack(goblin, human);
+            scanner.nextLine();
+
+            if (human.getHealth() <= 0 || goblin.getHealth() <= 0) {
                 break;
             }
-            scanner.nextLine();
 
         }
 
@@ -41,15 +42,13 @@ public class Combat {
         System.out.println("Combat has ended!");
         System.out.println();
 
-        if (attacker.getHealth() <= 0) {
+        if (human.getHealth() <= 0) {
             System.out.println("You died!");
-            System.out.println("Press enter to continue....");
-            scanner.nextLine();
+            pause();
             return false;
         } else {
             System.out.println("You killed the goblin!");
-            System.out.println("Press enter to continue....");
-            scanner.nextLine();
+            pause();
             return true;
         }
     }

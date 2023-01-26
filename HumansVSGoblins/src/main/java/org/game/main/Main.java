@@ -1,6 +1,5 @@
 package org.game.main;
 
-import org.game.ascii.Ascii;
 import org.game.characters.Entity;
 import org.game.characters.Goblin;
 import org.game.characters.Human;
@@ -8,6 +7,7 @@ import org.game.map.Map;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     private Map map;
@@ -111,7 +111,7 @@ public class Main {
         return map;
     }
 
-    public ArrayList<Entity> getCharacters() {
+    public List<Entity> getCharacters() {
         return characters;
     }
 

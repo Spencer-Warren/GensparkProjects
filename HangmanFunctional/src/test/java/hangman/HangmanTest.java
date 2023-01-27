@@ -9,7 +9,7 @@ class HangmanTest {
     void getGuessedSequenceTest() {
         Hangman hangman = HangmanStates.State1();
 
-        String expected = "c _ _ ";
+        String expected = "c _ _";
         String actual = hangman.getGuessedSequence();
         assertEquals(expected, actual, "Must have c _ _");
     }
@@ -17,7 +17,7 @@ class HangmanTest {
     void getGuessedSequenceFullTest() {
         Hangman hangman = HangmanStates.State2();
 
-        String expected = "c a t ";
+        String expected = "c a t";
         String actual = hangman.getGuessedSequence();
         assertEquals(expected, actual, "Guessed Sequence should be the full word");
         assertTrue(hangman.isComplete(), "Should be complete");
@@ -65,5 +65,12 @@ class HangmanTest {
         String expected2 = "b";
         String actual2 = hangman.getMissedLetters();
         assertEquals(expected2, actual2, "Only 'b' guessed wrong");
+    }
+
+    @Test
+    void wordExceptionTest() {
+        assertThrows(IllegalArgumentException.class, () -> new Hangman(null));
+        assertThrows(IllegalArgumentException.class, () -> new Hangman(""));
+        assertThrows(IllegalArgumentException.class, () -> new Hangman(" "));
     }
 }

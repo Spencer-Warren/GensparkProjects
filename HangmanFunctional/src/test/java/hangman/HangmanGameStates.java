@@ -12,7 +12,8 @@ public class HangmanGameStates {
      * @return new HangmanGame object
      */
     public static HangmanGame State1() {
-        HangmanGame hangmanGame = new HangmanGame("cat");
+        HangmanGame hangmanGame = new HangmanGame();
+        hangmanGame.reset("cat");
         Hangman hangman = hangmanGame.getHangman();
         hangman.guessLetter("c");
         hangman.guessLetter("b");
@@ -28,7 +29,8 @@ public class HangmanGameStates {
      * @return new HangmanGame object
      */
     public static HangmanGame State2() {
-        HangmanGame hangmanGame = new HangmanGame("cat");
+        HangmanGame hangmanGame = new HangmanGame();
+        hangmanGame.reset("cat");
         Hangman hangman = hangmanGame.getHangman();
         hangman.guessLetter("c");
         hangman.guessLetter("a");
@@ -45,7 +47,8 @@ public class HangmanGameStates {
      * @return new HangmanGame object
      */
     public static HangmanGame State3() {
-        HangmanGame hangmanGame = new HangmanGame("cat");
+        HangmanGame hangmanGame = new HangmanGame();
+        hangmanGame.reset("cat");
         Hangman hangman = hangmanGame.getHangman();
         hangman.guessLetter("x");
         hangman.guessLetter("y");

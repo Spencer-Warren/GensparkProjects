@@ -1,6 +1,8 @@
 package hangman;
 
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class HangmanUIStatesTest {
@@ -38,6 +40,31 @@ class HangmanUIStatesTest {
                 "/ \\|"  + lineSeprator +
                 "  ===" + lineSeprator;
         String actual = HangmanUIStates.hangmanString(6);
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void createHangmanState4Test() {
+        String lineSeprator = System.lineSeparator();
+
+        String expected =   "+--+"  + lineSeprator +
+                " 0 |"  + lineSeprator +
+                "-|-|"  + lineSeprator +
+                "   |"  + lineSeprator +
+                "  ===" + lineSeprator;
+        String actual = HangmanUIStates.hangmanString(4);
+        assertEquals(expected,actual);
+    }
+    @Test
+    void createHangmanState5Test() {
+        String lineSeprator = System.lineSeparator();
+
+        String expected =   "+--+"  + lineSeprator +
+                " 0 |"  + lineSeprator +
+                "-|-|"  + lineSeprator +
+                "/  |"  + lineSeprator +
+                "  ===" + lineSeprator;
+        String actual = HangmanUIStates.hangmanString(5);
         assertEquals(expected,actual);
     }
 }

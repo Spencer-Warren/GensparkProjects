@@ -1,5 +1,6 @@
 package hangman;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Hangman {
@@ -29,18 +30,9 @@ public class Hangman {
      * @return String sequence of guessed chars
      */
     public String getGuessedSequence(){
-        StringBuilder result = new StringBuilder();
-        for (char c : wordToGuess.toCharArray()) {
-            // sonarlint
-            if (Boolean.TRUE.equals(charInString(guessedLetters, c))) {
-                result.append(c);
-            }
-            else {
-                result.append("_");
-            }
-            result.append(" ");
-        }
-        return result.toString();
+        return Arrays.stream(wordToGuess.split(""))
+                .map(c -> !guessedLetters.contains(c) ? "_" : c)
+                .reduce((a, b) -> a + " " + b).get();
     }
 
     /**
@@ -105,11 +97,7 @@ public class Hangman {
      * @return boolean if char is in string
      */
     private Boolean charInString(String s, char charToFind){
-        for (char c : s.toCharArray()) {
-            if (charToFind == c) {
-                return true;
-            }
-        }
-        return false;
+        String c = String.valueOf(charToFind);
+        return s.contains(c);
     }
 }

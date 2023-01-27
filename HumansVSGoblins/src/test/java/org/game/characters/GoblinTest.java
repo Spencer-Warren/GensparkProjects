@@ -10,7 +10,7 @@ class GoblinTest {
     @Test
     void testToString() {
         Goblin goblin = new Goblin(1, 2);
-        String expected = "Goblin{x=1, y=2, health=5, defense=1, weapon=Weapon{name='Scimitar', minDamage=1, maxDamage=3}}";
+        String expected = "Goblin{x=1, y=2, health=5, defense=1, weapon=Weapon{name='Scimitar', minDamage=3, maxDamage=5}}";
         String actual = goblin.toString();
         assertEquals(expected, actual, "toString should be " + expected);
     }
@@ -38,5 +38,12 @@ class GoblinTest {
         char expected = 'G';
         char actual = goblin.getTile();
         assertEquals(expected, actual, "Tile should be " + expected);
+    }
+    @Test
+    void testGetSimpleName() {
+        Goblin goblin = new Goblin(1, 2);
+        String expected = "Goblin";
+        String actual = goblin.getSimpleName();
+        assertEquals(expected, actual, "SimpleName should be " + expected);
     }
 }

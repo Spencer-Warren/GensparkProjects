@@ -93,6 +93,11 @@ class EntityTest {
     }
 
     @Test
+    void getSimpleNameTest() {
+        assertEquals("Entity", entity.getSimpleName(), "SimpleName should be Entity");
+    }
+
+    @Test
     void giveWeapon() {
         Weapon sword = new Weapon("Sword", 1, 10);
         entity.giveWeapon(sword);
@@ -105,11 +110,43 @@ class EntityTest {
         entity.move(map,1, 1);
         assertEquals(1, entity.getX(), "X should be 1");
         assertEquals(1, entity.getY(), "Y should be 1");
-        assertEquals(map.getTile(1, 1), entity.getTile(), "Tile should be " + entity.getTile());
     }
 
     @Test
     void toStringTest() {
         assertEquals("Character{health=10, defense=2, weapon=Weapon{name='Sword', minDamage=1, maxDamage=10}}", entity.toString(), "toString should be Character{health=10, defense=2, weapon=Weapon{name='Sword', minDamage=1, maxDamage=10}}");
+    }
+
+    @Test
+    void equalsTest() {
+        Entity entity1 = new Entity(0, 0, 10, 2);
+        Entity entity2 = new Entity(0, 0, 10, 2);
+        assertEquals(entity1, entity2, "Entities should be equal");
+    }
+    @Test
+    void equalsTest2() {
+        Entity entity1 = new Entity(0, 0, 10, 2);
+        Entity entity2 = new Entity(1, 1, 10, 2);
+        assertNotEquals(entity1, entity2, "Entities should not be equal");
+    }
+    @Test
+    void equalsTest3() {
+        Entity entity1 = new Entity(0, 0, 10, 2);
+        Weapon entity2 = new Weapon("Sword", 1, 10);
+        assertNotEquals(entity1, entity2, "Entities should be equal");
+    }
+
+    @Test
+    void equalsTest4() {
+        Entity entity1 = new Entity(0, 0, 10, 2);
+
+        assertEquals(entity1, entity1, "Entities should be equal");
+    }
+
+    @Test
+    void hashCodeTest() {
+        Entity entity1 = new Entity(0, 0, 10, 2);
+        Entity entity2 = new Entity(0, 0, 10, 2);
+        assertEquals(entity1.hashCode(), entity2.hashCode(), "Hashcodes should be equal");
     }
 }

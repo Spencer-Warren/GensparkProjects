@@ -104,7 +104,7 @@ public class Entity {
 
     @SuppressWarnings("SameReturnValue")
     public String getSimpleName() {
-        return "";
+        return "Entity";
     }
 
     public boolean equals(Object o) {
@@ -115,7 +115,7 @@ public class Entity {
             return false;
         }
         Entity e = (Entity) o;
-        return x == e.x && y == e.y && health == e.health && defense == e.defense && weapon.equals(e.weapon);
+        return x == e.x && y == e.y && health == e.health && defense == e.defense;
     }
 
     public int hashCode() {
@@ -124,7 +124,6 @@ public class Entity {
         result = 31 * result + y;
         result = 31 * result + health;
         result = 31 * result + defense;
-        result = 31 * result + weapon.hashCode();
         return result;
     }
 

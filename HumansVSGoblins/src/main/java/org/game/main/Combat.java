@@ -12,7 +12,7 @@ public class Combat {
     }
     private static final Scanner scanner = new Scanner(System.in);
 
-    private static void pause() {
+    public static void pause() {
         System.out.println("Press enter to continue....");
         scanner.nextLine();
     }
@@ -64,7 +64,7 @@ public class Combat {
 
     public static void attack(Entity attacker, Entity defender) {
         int damage = attacker.attack(defender);
-        System.out.println(attacker.getSimpleName() + " attacked " + defender.getSimpleName() + " for " + damage + " damage!");
+        System.out.println(attacker.getSimpleName() + " attacked the " + defender.getSimpleName() + " for " + damage + " damage!");
     }
 
 }

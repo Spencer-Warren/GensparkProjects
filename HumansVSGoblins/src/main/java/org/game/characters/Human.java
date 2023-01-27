@@ -12,7 +12,7 @@ public class Human extends Entity {
      * @param y the y coordinate of the Human
      */
     public Human(int x, int y) {
-        super(x, y, 100, 2, 'H');
+        super(x, y, 10, 2, 'H');
         giveWeapon(new Weapon("Sword", 3, 6));
     }
 

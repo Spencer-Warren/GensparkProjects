@@ -4,7 +4,6 @@ package com.guess;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +13,7 @@ class GuessTheNumberTest {
         String input = "1\n";
 
         GuessTheNumber numberGuess = new GuessTheNumber();
-        numberGuess.consoleIn = new Scanner(input);
+        numberGuess.setConsoleIn(new ByteArrayInputStream(input.getBytes()));
 
         int expected = 1;
         int actual = numberGuess.getConsoleInt();
@@ -26,7 +25,7 @@ class GuessTheNumberTest {
         String input = "y\n";
 
         GuessTheNumber numberGuess = new GuessTheNumber();
-        numberGuess.consoleIn = new Scanner(input);
+        numberGuess.setConsoleIn(new ByteArrayInputStream(input.getBytes()));
 
         String expected = "y";
         String actual = numberGuess.getConsoleString();
@@ -38,8 +37,8 @@ class GuessTheNumberTest {
         String input = "Spencer\n18\nn\n";
 
         GuessTheNumber numberGuess = new GuessTheNumber();
-        numberGuess.consoleIn = new Scanner(input);
-        numberGuess.randomNumberGenerator.setSeed(1);
+        numberGuess.setConsoleIn(new ByteArrayInputStream(input.getBytes()));
+        GuessTheNumber.randomNumberGenerator.setSeed(1);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream original = System.out;

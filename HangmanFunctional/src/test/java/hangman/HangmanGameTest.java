@@ -139,7 +139,7 @@ class HangmanGameTest {
         Hangman newHangman = hmg.getHangman();
         String newWord = hmg.getWordToGuess();
 
-        assertFalse(originalHangman == newHangman, "Hangman should be reset");
-        assertFalse(originalWord == newWord, "Word should be reset");
+        assertNotSame(originalHangman, newHangman, "Hangman should be reset");
+        assertNotSame(originalWord, newWord, "Word should be reset");
     }
 }

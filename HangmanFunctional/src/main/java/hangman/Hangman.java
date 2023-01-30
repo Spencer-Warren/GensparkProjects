@@ -32,7 +32,7 @@ public class Hangman {
     public String getGuessedSequence(){
         return Arrays.stream(wordToGuess.split(""))
                 .map(c -> !guessedLetters.contains(c) ? "_" : c)
-                .reduce((a, b) -> a + " " + b).get();
+                .reduce((a, b) -> a + " " + b).orElse("");
     }
 
     /**

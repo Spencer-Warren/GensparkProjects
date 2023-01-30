@@ -1,70 +1,60 @@
 package hangman;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class HangmanUIStatesTest {
     private static final String lineSeparator = System.lineSeparator();
 
-    @org.junit.jupiter.api.Test
-    void createHangmanBlankTest() {
-
-        String expected =   "+--+"  + lineSeparator +
-                            "   |"  + lineSeparator +
-                            "   |"  + lineSeparator +
-                            "   |"  + lineSeparator +
-                            "  ===" + lineSeparator;
-        String actual = HangmanUIStates.hangmanString(0);
-        assertEquals(expected,actual);
-    }
-    @org.junit.jupiter.api.Test
-    void createHangmanTwoIncorrectTest() {
-
-        String expected =   "+--+"  + lineSeparator +
-                " 0 |"  + lineSeparator +
-                " | |"  + lineSeparator +
-                "   |"  + lineSeparator +
-                "  ===" + lineSeparator;
-        String actual = HangmanUIStates.hangmanString(2);
-        assertEquals(expected,actual);
-    }
-    @org.junit.jupiter.api.Test
-    void createHangmanFullTest() {
-        String lineSeprator = System.lineSeparator();
-
-        String expected =   "+--+"  + lineSeprator +
-                " 0 |"  + lineSeprator +
-                "-|-|"  + lineSeprator +
-                "/ \\|"  + lineSeprator +
-                "  ===" + lineSeprator;
-        String actual = HangmanUIStates.hangmanString(6);
+    @ParameterizedTest
+    @MethodSource("hangmanUIStatesTestProvider")
+    void createHangmanStateTest(int state, String expected) {
+        String actual = HangmanUIStates.hangmanString(state);
         assertEquals(expected,actual);
     }
 
-    @Test
-    void createHangmanState4Test() {
-        String lineSeprator = System.lineSeparator();
-
-        String expected =   "+--+"  + lineSeprator +
-                " 0 |"  + lineSeprator +
-                "-|-|"  + lineSeprator +
-                "   |"  + lineSeprator +
-                "  ===" + lineSeprator;
-        String actual = HangmanUIStates.hangmanString(4);
-        assertEquals(expected,actual);
-    }
-    @Test
-    void createHangmanState5Test() {
-        String lineSeprator = System.lineSeparator();
-
-        String expected =   "+--+"  + lineSeprator +
-                " 0 |"  + lineSeprator +
-                "-|-|"  + lineSeprator +
-                "/  |"  + lineSeprator +
-                "  ===" + lineSeprator;
-        String actual = HangmanUIStates.hangmanString(5);
-        assertEquals(expected,actual);
+    static Stream<Arguments> hangmanUIStatesTestProvider() {
+        return Stream.of(
+                Arguments.of(0, "+--+"  + lineSeparator +
+                        "   |"  + lineSeparator +
+                        "   |"  + lineSeparator +
+                        "   |"  + lineSeparator +
+                        "  ===" + lineSeparator),
+                Arguments.of(1, "+--+"  + lineSeparator +
+                        " 0 |"  + lineSeparator +
+                        "   |"  + lineSeparator +
+                        "   |"  + lineSeparator +
+                        "  ===" + lineSeparator),
+                Arguments.of(2, "+--+"  + lineSeparator +
+                        " 0 |"  + lineSeparator +
+                        " | |"  + lineSeparator +
+                        "   |"  + lineSeparator +
+                        "  ===" + lineSeparator),
+                Arguments.of(3, "+--+"  + lineSeparator +
+                        " 0 |"  + lineSeparator +
+                        "-| |"  + lineSeparator +
+                        "   |"  + lineSeparator +
+                        "  ===" + lineSeparator),
+                Arguments.of(4, "+--+"  + lineSeparator +
+                        " 0 |"  + lineSeparator +
+                        "-|-|"  + lineSeparator +
+                        "   |"  + lineSeparator +
+                        "  ===" + lineSeparator),
+                Arguments.of(5, "+--+"  + lineSeparator +
+                        " 0 |"  + lineSeparator +
+                        "-|-|"  + lineSeparator +
+                        "/  |"  + lineSeparator +
+                        "  ===" + lineSeparator),
+                Arguments.of(6, "+--+"  + lineSeparator +
+                        " 0 |"  + lineSeparator +
+                        "-|-|"  + lineSeparator +
+                        "/ \\|"  + lineSeparator +
+                        "  ===" + lineSeparator)
+        );
     }
 }

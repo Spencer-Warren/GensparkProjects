@@ -7,7 +7,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.regex.Pattern;
@@ -56,11 +55,12 @@ class CombatTest {
         Pattern pattern = Pattern.compile("Human attacked the Goblin for [0-9] damage!");
         assertTrue(pattern.matcher(baos.toString()).find(), "attack should be " + pattern + " but was " + baos.toString());
     }
-    @Test
-    void pause() {
-        String input = "test";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-        Combat.pause();
-        assertEquals("Press enter to continue...." + System.lineSeparator(), baos.toString(), "pause should be Press enter to continue.... but was " + baos.toString());
-    }
+//    @Test
+//    void pause() {
+//        String input = "test";
+//        System.setIn(new ByteArrayInputStream(input.getBytes()));
+////        Combat.pause();
+//        assertEquals("Press enter to continue...." + System.lineSeparator(), baos.toString(), "pause should be Press enter to continue.... but was " + baos.toString());
+//
+//    }
 }

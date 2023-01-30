@@ -16,6 +16,8 @@ public class HangmanGame {
      */
     public HangmanGame() {
         this.in = new Scanner(System.in);
+        reset();
+
     }
 
     public Hangman getHangman() {
@@ -44,7 +46,6 @@ public class HangmanGame {
 
     public void run() {
         boolean exit = false;
-        reset();
         System.out.println("H A N G M A N");
 
         do {
@@ -56,11 +57,14 @@ public class HangmanGame {
                 case EXIT:
                     String response = getUserInput("Do you want to play again? (yes or no)");
                     if (response.equalsIgnoreCase("yes")) {
+                        reset();
                         state = HangmanGameState.GUESSING;
                     } else {
                         exit = true;
                     }
                     break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + state);
 
             }
             if (Boolean.TRUE.equals(hangman.isComplete()) && state == HangmanGameState.GUESSING) {
@@ -97,9 +101,10 @@ public class HangmanGame {
         hangman = new Hangman(wordToGuess);
     }
 
-    public void reset(String word) {
+    public HangmanGame reset(String word) {
         wordToGuess = word;
         hangman = new Hangman(wordToGuess);
+        return this;
     }
 
     public String getUserInput(String prompt) {

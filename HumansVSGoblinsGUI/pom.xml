@@ -7,7 +7,7 @@
     <groupId>org.game</groupId>
     <artifactId>HumansVSGoblinsGUI</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -21,10 +21,23 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>11</version>
+        </dependency>
     </dependencies>
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>javafx-maven-plugin</artifactId>
+                    <version>0.0.1</version>
+                    <configuration>
+                        <mainClass>GameGui</mainClass>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>

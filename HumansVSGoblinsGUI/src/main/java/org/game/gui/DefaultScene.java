@@ -24,6 +24,7 @@ public abstract class DefaultScene {
 	protected DefaultScene(Stage stage, VBox root) {
 		this.stage = stage;
 		this.root = root; // the root pane we are adding elements too
+//		root.getStylesheets().add("Main.css");
 		root.getStyleClass().add("background");
 		root.setPadding(new Insets(20));
 		scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);

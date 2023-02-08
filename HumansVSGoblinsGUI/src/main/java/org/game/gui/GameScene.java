@@ -1,10 +1,11 @@
 package org.game.gui;
 
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.game.assets.Assets;
 import org.game.main.GameState;
 
 public class GameScene extends SubScene {
@@ -42,8 +43,19 @@ public class GameScene extends SubScene {
         char[][] map = gameState.getMap().getCharsMap();
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                Label label = new Label(String.valueOf(map[i][j]));
-                graphicalMap.add(label, i, j);
+                switch (map[i][j]) {
+                    case 'H':
+                        graphicalMap.add(Assets.getHumanImage(), i, j);
+                        break;
+                    case 'G':
+                        graphicalMap.add(Assets.getGoblinImage(), i, j);
+                        break;
+                    case '.':
+                        graphicalMap.add(Assets.getTileImage(), i, j);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

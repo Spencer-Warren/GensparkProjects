@@ -26,6 +26,10 @@ public class GameGui extends Application {
         stage.show();
     }
 
+    /**
+     * Initializes all scenes
+     * Also binds buttons to scenes
+     */
     private void initScenes() {
         mainMenu = new MainMenuScene(stage);
         aboutScene = new AboutScene(stage, mainMenu);

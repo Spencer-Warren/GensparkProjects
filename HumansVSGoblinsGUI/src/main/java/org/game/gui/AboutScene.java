@@ -22,14 +22,14 @@ public class AboutScene extends SubScene {
 		body.setPadding(new Insets(20));
 		body.getStyleClass().add("level-body");
 
-		String labelText = "This desktop app is a coding tutorial aimed towards a less technical audience.%n%n"+
-				"It includes 8 topics each with its own mini activity. And saves where you were in those activities.%n"+
-				"It has all the text, information and activity answers stored in a JSON file.%n%n"+
-				"This application was built using Java and utilizes the JavaFX Libraries for its UI.%n%n"+
+		String labelText = "This is a GUI adaptation of a grid based game.%n%n"+
+				"Your a human faced with a grid of goblins to battle.%n"+
+				"Defeat each goblin to win!.%n%n"+
+				"This application was built using Java and utilizes the JavaFX Libraries for its GUI.%n%n"+
 				"Created by:%n"+
 				"\tSpencer Warren%n%n"+
-				"Version 1.0%n"+
-				"2/7/2023%n";
+				"Version 0.0%n"+
+				"2/13/2023%n";
 
 		labelText = String.format(labelText);
 		

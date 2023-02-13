@@ -1,7 +1,7 @@
 .root {
 	-fx-font-size:         17.0px;
-    -fx-background-color: #FFFFFF;
-    -fx-font-family: 'Times New Roman';
+	-fx-font-family: 'Times New Roman';
+	-fx-font-color: #cccccc;
     -fx-focus-color:       transparent;
     -fx-faint-focus-color: transparent;
 }
@@ -9,7 +9,7 @@
 .title-label {
 	-fx-font-size: 55.0px;
 	-fx-font-weight: bold;
-	-fx-text-fill: #272838;
+	-fx-text-fill: #003300;
 	-fx-border-radius:     15.0px;
 	-fx-background-radius: 15.0px;
 	-fx-background-color: #FFFFFF;
@@ -31,6 +31,8 @@
 	-fx-background-color: #fbfef9;
 	-fx-background-insets:  1.0px;
 	-fx-border-radius:     10.0px;
+	-fx-border-width:       2.5px;
+	-fx-border-color:     #333333;
 	-fx-background-radius: 10.0px;
 	
 }
@@ -52,7 +54,7 @@
 }
 
 .background{
-   -fx-background-color: linear-gradient(from 750.0px 750.0px to 1000.0px 1000.0px, #7e7f9a, #eb9486);
+   -fx-background-color: linear-gradient(from 750.0px 750.0px to 1000.0px 1000.0px, #cccc99, #669933);
 }
 
 .level-body {
@@ -76,51 +78,4 @@
 	-fx-font-size: 17.0px;
 	-fx-padding:    0.0px;
 	-fx-background-insets: 0.0px;
-}
-
-.mechanic-root {
-	-fx-border-color: #AFB0C0;
-	-fx-border-radius: 5.0px;
-	-fx-padding:      20.0px;
-}
-
-.score-box {
-	-fx-font-size: 20.0px;
-}
-
-.drag {
-	-fx-font-size: 17.0px;
-	-fx-padding:    3.0px;
-}
-
-.drag-text {
-	-fx-font-size: 17.0px;
-}
-
-.drag-empty {
-	-fx-border-color:     #AFB0C0;
-	-fx-background-color: #FFFFFF;
-
-}
-
-.drag-full {
-	-fx-border-color: #000000;
-	-fx-border-radius: 5.0px;
-	-fx-border-width:  2.0px;
-}
-
-.drag-box {
-	-fx-padding: 10.0px;
-}
-
-.move-dest {
-	-fx-padding: 10.0px;
-}
-
-.move-instructions {
-	-fx-font-size: 10.0px;
-}
-
-.multi-root {
-	
 }

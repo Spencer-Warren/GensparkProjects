@@ -33,6 +33,7 @@ public class GameScene extends SubScene {
         HBox body = new HBox();
         body.setSpacing(15);
         body.setPadding(new Insets(20));
+        body.getStyleClass().add("level-body");
 
         graphicalMap = new GridPane();
         graphicalMap.setHgap(10);

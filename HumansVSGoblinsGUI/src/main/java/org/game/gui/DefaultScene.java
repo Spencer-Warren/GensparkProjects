@@ -7,24 +7,21 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-
-
-import static org.game.gui.DefaultProperties.*;
 
 public abstract class DefaultScene {
+	public static final int SCENE_WIDTH = 1280;
+	public static final int SCENE_HEIGHT = 720;
+
 	private final Scene scene;
-	private final VBox root;
+	private final Pane root;
 	private final Stage stage;
 
-	protected DefaultScene(Stage stage, VBox root) {
+	protected DefaultScene(Stage stage, Pane root) {
 		this.stage = stage;
 		this.root = root; // the root pane we are adding elements too
-//		root.getStylesheets().add("Main.css");
+		root.getStylesheets().add("Main.css");
 		root.getStyleClass().add("background");
 		root.setPadding(new Insets(20));
 		scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
@@ -34,7 +31,7 @@ public abstract class DefaultScene {
 		return scene;
 	}
 
-	public VBox getRoot() {
+	public Pane getRoot() {
 		return root;
 	}
 

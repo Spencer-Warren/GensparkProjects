@@ -4,22 +4,18 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public abstract class SubScene extends DefaultScene {
 	protected DefaultScene parentScene;
 	private final Button back;
 
-	protected SubScene(Stage stage, VBox root, DefaultScene parentScene) {
+	protected SubScene(Stage stage, Pane root, DefaultScene parentScene) {
 		super(stage, root);
 		this.parentScene = parentScene;
 		this.back = new Button("Back...");
 		back.getStyleClass().add("button-back");
-		getRoot().setSpacing(25); // seperate title from body
 //		initElements(); // Initialize elements, this is to be defined in subclasses
 	}
 
@@ -46,7 +42,6 @@ public abstract class SubScene extends DefaultScene {
 		titleLabel.setAlignment(Pos.CENTER);
 		titleLabel.setMaxWidth(Double.MAX_VALUE); // fill the width with Vbox
 		titleLabel.setPadding(new Insets(20,0,0,0)); // of set from the top of the stage
-		
 		// Anchor the back button to the stage
 		AnchorPane backButton = new AnchorPane(getBack());
 		AnchorPane.setLeftAnchor(getBack(), 0.0);

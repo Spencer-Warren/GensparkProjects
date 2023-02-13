@@ -74,12 +74,14 @@ public class Hangman {
     /**
      * Given a char adds to the guessed letters
      * and adds incorrect
+     *
      * @param c String letter user guessed
+     * @return boolean if letter was in word
      */
-    public void guessLetter(String c) {
+    public boolean guessLetter(String c) {
         // if its already guessed ignore
         if (Boolean.TRUE.equals(isLetterGuessed(c.charAt(0)))) {
-            return;
+            return false;
         }
         // add to total list of guest letters
         guessedLetters += c;
@@ -87,7 +89,9 @@ public class Hangman {
         if (Boolean.FALSE.equals(charInString(wordToGuess, c.charAt(0)))) {
             missedLetters += c;
             numberWrongGuesses++;
+            return false;
         }
+        return true;
     }
 
     /**

@@ -37,6 +37,7 @@ class FullGameTest {
     @Test
     void fullGameTest() {
         String expected = "H A N G M A N%n" +
+                "Enter your name: %n" +
                 "Guess a letter: %n" +
                 "+--+%n" +
                 "   |%n" +
@@ -83,7 +84,7 @@ class FullGameTest {
                 "Do you want to play again? (yes or no)%n";
         expected = String.format(expected);
 
-        String input = "a%na%nh%nt%nr%np%nnno%n";
+        String input = "JunitTest%na%na%nh%nt%nr%np%nnno%n";
         input = String.format(input);
         bais = new ByteArrayInputStream(input.getBytes());
         System.setIn(bais);

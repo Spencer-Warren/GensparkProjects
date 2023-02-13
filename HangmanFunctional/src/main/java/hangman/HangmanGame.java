@@ -1,15 +1,22 @@
 package hangman;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class HangmanGame {
-    private HangmanGameState state = HangmanGameState.GUESSING;
     private static final ArrayList<String> words = new ArrayList<>(Arrays.asList("cat", "dog", "heat", "trap", "knock", "treat", "class", "reach", "wrong", "flood", "look", "give"));
     private static final Random random = new Random();
+    private static final String SCORES_TXT = "scores.txt";
     private final Scanner in;
-    // Protected so that the tests can access it
+    private HangmanGameState state = HangmanGameState.GUESSING;
     private Hangman hangman;
     private String wordToGuess;
+    private String userName;
+    private int score = 100;
 
     /**
      * default constructor
@@ -47,6 +54,7 @@ public class HangmanGame {
     public void run() {
         boolean exit = false;
         System.out.println("H A N G M A N");
+        userName = getUserInput("Enter your name: ");
 
         do {
             switch (state) {
@@ -55,6 +63,8 @@ public class HangmanGame {
                     break;
 
                 case EXIT:
+                    checkForHighScore();
+                    scoreToFile();
                     String response = getUserInput("Do you want to play again? (yes or no)");
                     if (response.equalsIgnoreCase("yes")) {
                         reset();
@@ -74,7 +84,7 @@ public class HangmanGame {
             if (state == HangmanGameState.GUESSING) {
                 System.out.println(displayHangman());
             }
-            if (hangman.getNumberWrongGuesses() == 6 && state == HangmanGameState.GUESSING) {
+            if (hangman.getNumberWrongGuesses() == wordToGuess.length() && state == HangmanGameState.GUESSING) {
                 System.out.printf("Sorry, you are hung! The word was \"%s\".%n", wordToGuess);
                 state = HangmanGameState.EXIT;
             }
@@ -83,6 +93,7 @@ public class HangmanGame {
 
     public void handleGuess() {
         String guess = getUserInput("Guess a letter: ");
+        boolean correct = false;
 
         if (Character.isDigit(guess.charAt(0))) {
             System.out.println("Please enter a letter: ");
@@ -90,7 +101,13 @@ public class HangmanGame {
         if (Boolean.TRUE.equals(hangman.isLetterGuessed(guess.charAt(0)))) {
             System.out.println("You have already guessed that letter. Choose again.");
         } else {
-            hangman.guessLetter(guess);
+            correct = hangman.guessLetter(guess);
+        }
+        if (!correct) {
+            score -= 10;
+        }
+        else {
+            score += 10;
         }
     }
 
@@ -110,6 +127,34 @@ public class HangmanGame {
     public String getUserInput(String prompt) {
         System.out.println(prompt);
         return in.nextLine();
+    }
+
+    public void scoreToFile() {
+        try (
+                FileWriter fr = new FileWriter(SCORES_TXT, true);
+                BufferedWriter br = new BufferedWriter(fr)
+            ) {
+            br.write("Name: " + userName + " Score: " + score);
+            br.newLine();
+        } catch (IOException e) {
+            System.out.println("Error writing to file '" + SCORES_TXT + "'");
+        }
+    }
+
+    public void checkForHighScore() {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(SCORES_TXT));
+            int highScore = lines.stream()
+                    .map(line -> line.split(" ")[3])
+                    .map(Integer::parseInt)
+                    .max(Integer::compareTo)
+                    .orElse(0);
+            if (score > highScore) {
+                System.out.println("Congratulations! You have the high score!");
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file '" + SCORES_TXT + "'");
+        }
     }
 
     public String getWordToGuess() {

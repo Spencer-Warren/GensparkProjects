@@ -6,11 +6,11 @@ import org.game.characters.Entity;
 import java.util.Scanner;
 
 public class Combat {
-    private Combat()
-    {
-        // This class should not be instantiated
-    }
+
     private static final Scanner scanner = new Scanner(System.in);
+
+    private Combat() {
+    }
 
     public static void pause() {
         System.out.println("Press enter to continue....");

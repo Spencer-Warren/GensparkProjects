@@ -8,7 +8,7 @@ public class Assets {
         // Prevent instantiation
     }
     public static ImageView getTileImage() {
-        return getImageView("stone.png");
+        return getImageView("stone_bricks.png");
     }
 
     public static ImageView getGoblinImage() {

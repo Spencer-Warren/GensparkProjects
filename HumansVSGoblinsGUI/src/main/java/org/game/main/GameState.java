@@ -57,18 +57,13 @@ public class GameState {
                 System.out.println("Invalid input");
         }
     }
-
-    public void testForCombat() {
+    public Combat testForCombat() {
         for (Entity character : characters) {
             if (character != human && character.getX() == human.getX() && character.getY() == human.getY() && !character.equals(human)) {
-                if (!Combat.combat(human, character)) {
-                    gamePlayState = GamePlayState.END;
-                } else {
-                    characters.remove(character);
-                    break;
-                }
+//                return new Combat(human, character);
             }
         }
+        return null;
     }
 
     public Map getMap() {

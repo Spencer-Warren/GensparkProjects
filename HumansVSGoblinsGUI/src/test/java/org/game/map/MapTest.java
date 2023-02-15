@@ -91,4 +91,12 @@ class MapTest {
         assertEquals('X', map.getTile(0, 0), "Tile should be 'X'");
     }
 
+    @Test
+    void getCharsMaptest() {
+        Map map = new Map(10, 10);
+        char[][] charMap = map.getCharsMap();
+        assertEquals(10, charMap.length, "Width should be 10");
+        assertEquals(10, charMap[0].length, "Height should be 10");
+    }
+
 }

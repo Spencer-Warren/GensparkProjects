@@ -12,11 +12,9 @@ public class GameState {
     private Map map;
     private ArrayList<Entity> characters;
     private Human human;
-    private GamePlayState gamePlayState;
 
     public void initializeGame() {
         map = new Map(10, 10);
-        gamePlayState = GamePlayState.PLAYING;
 
         characters = new ArrayList<>();
         human = new Human(0, 0);
@@ -28,12 +26,6 @@ public class GameState {
             characters.add(new Goblin(xy[0], xy[1]));
         }
         map.updateMap(characters);
-    }
-
-
-    public void handleUserInput() {
-        String input = UserInput.getUserInput();
-        handleUserInput(input);
     }
 
     public void handleUserInput(String input) {
@@ -50,20 +42,17 @@ public class GameState {
             case "e":
                 human.move(map,1, 0);
                 break;
-            case "q":
-                gamePlayState = GamePlayState.END;
-                break;
             default:
                 System.out.println("Invalid input");
         }
     }
-    public Combat testForCombat() {
+    public Entity[] testForCombat() {
         for (Entity character : characters) {
             if (character != human && character.getX() == human.getX() && character.getY() == human.getY() && !character.equals(human)) {
-//                return new Combat(human, character);
+                return new Entity[] { human, character };
             }
         }
-        return null;
+        return new Entity[] {};
     }
 
     public Map getMap() {
@@ -78,7 +67,11 @@ public class GameState {
         return human;
     }
 
-    public GamePlayState getGameState() {
-        return gamePlayState;
+    public void removeCharacter(Entity character) {
+        characters.remove(character);
+    }
+
+    public void lose() {
+        // TODO: Implement this
     }
 }

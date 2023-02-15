@@ -7,15 +7,16 @@ public class Entity {
     private int x;
     private int y;
     private int health;
+    private final int maxHealth;
     private int defense;
     private Weapon weapon;
-
     private final char tile;
 
     public Entity(int x, int y, int health, int defense, char tile) {
         this.x = x;
         this.y = y;
         this.health = health;
+        this.maxHealth = health;
         this.defense = defense;
         this.tile = tile;
     }
@@ -24,6 +25,7 @@ public class Entity {
         this.x = x;
         this.y = y;
         this.health = health;
+        this.maxHealth = health;
         this.defense = defense;
         this.tile = ' ';
     }
@@ -105,6 +107,10 @@ public class Entity {
     @SuppressWarnings("SameReturnValue")
     public String getSimpleName() {
         return "Entity";
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
     }
 
     public boolean equals(Object o) {

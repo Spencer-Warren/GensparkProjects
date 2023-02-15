@@ -3,17 +3,22 @@ package org.game.gui;
 import javafx.geometry.Insets;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.game.assets.Assets;
+import org.game.characters.Entity;
 import org.game.main.GameState;
 
 public class GameScene extends SubScene {
     private GridPane graphicalMap;
-
-    private GameState gameState;
+    private final GameState gameState;
+    private Pane combatPane;
+    private Button[] buttons;
+    private Label status;
 
     /**
      * Constructor for GameScene
@@ -40,15 +45,28 @@ public class GameScene extends SubScene {
         graphicalMap.setVgap(10);
         graphicalMap.setPadding(new Insets(0, 10, 0, 10));
         updateMap();
-        GridPane buttons = createButtons();
-        body.getChildren().addAll(graphicalMap, buttons);
+
+        GridPane buttonPane = createButtons();
+        status = new Label();
+        updateStatus();
+        HBox statusBar = new HBox();
+        statusBar.setSpacing(15);
+        statusBar.getChildren().addAll(buttonPane, status);
+
+        combatPane = new Pane();
+
+        VBox rightSide = new VBox();
+        rightSide.setSpacing(15);
+        rightSide.getChildren().addAll(statusBar, combatPane);
+
+        body.getChildren().addAll(graphicalMap, rightSide);
         getRoot().getChildren().add(body);
     }
 
     private void updateMap() {
         graphicalMap.getChildren().clear();
         gameState.getMap().updateMap(gameState.getCharacters());
-        gameState.testForCombat();
+        combatCheck();
 
         char[][] map = gameState.getMap().getCharsMap();
         for (int i = 0; i < map.length; i++) {
@@ -70,6 +88,13 @@ public class GameScene extends SubScene {
         }
     }
 
+    public void updateStatus() {
+        status.setText("Your Health: " + gameState.getHuman().getHealth() + "/"
+                + gameState.getHuman().getMaxHealth() + "\n"
+        + " Your Attack: " + gameState.getHuman().getWeapon().getMinDamage()
+                + "-" + gameState.getHuman().getWeapon().getMaxDamage() + "\n"
+        + " Your Defense: " + gameState.getHuman().getDefense());
+    }
 
     private GridPane createButtons() {
         Button northButton = new Button("North");
@@ -77,35 +102,70 @@ public class GameScene extends SubScene {
         Button eastButton = new Button("East");
         Button westButton = new Button("West");
 
+        buttons = new Button[]{northButton, southButton, eastButton, westButton};
+
         northButton.setOnAction(e -> {
             gameState.handleUserInput("n");
             updateMap();
         });
+
         southButton.setOnAction(e -> {
             gameState.handleUserInput("s");
             updateMap();
         });
+
         eastButton.setOnAction(e -> {
             gameState.handleUserInput("e");
             updateMap();
         });
+
         westButton.setOnAction(e -> {
             gameState.handleUserInput("w");
             updateMap();
         });
 
-        GridPane buttons = new GridPane();
-        buttons.setHgap(10);
-        buttons.setVgap(10);
-        buttons.setPadding(new Insets(0, 10, 0, 10));
-        buttons.add(northButton, 1, 0);
-        buttons.add(southButton, 1, 2);
-        buttons.add(eastButton, 2, 1);
-        buttons.add(westButton, 0, 1);
-        return buttons;
+        GridPane buttonPane = new GridPane();
+        buttonPane.setHgap(5);
+        buttonPane.setVgap(5);
+        buttonPane.setPadding(new Insets(0, 10, 0, 10));
+        buttonPane.add(northButton, 1, 0);
+        buttonPane.add(southButton, 1, 2);
+        buttonPane.add(eastButton, 2, 1);
+        buttonPane.add(westButton, 0, 1);
+        return buttonPane;
     }
-//    private void switchToCombatScene() {
-//        CombatScene combatScene = new CombatScene(getStage(), this);
-//        getStage().setScene(combatScene);
-//    }
+
+    private void combatCheck() {
+        Entity[] combatants = gameState.testForCombat();
+        if (combatants.length == 2) {
+            CombatScene combatScene = new CombatScene(this, combatants[0], combatants[1]);
+            combatPane.getChildren().clear();
+            combatPane.getChildren().add(combatScene.getPane());
+            toggleButtons(false);
+        }
+    }
+
+    private void toggleButtons(boolean b) {
+        for (Button button : buttons) {
+            button.setDisable(!b);
+        }
+    }
+
+    public void endCombat(boolean won) {
+        Entity[] combatants = gameState.testForCombat();
+        if (won) {
+            gameState.removeCharacter(combatants[1]);
+        } else {
+            end(false);
+        }
+        toggleButtons(true);
+        updateMap();
+    }
+
+    private void end(boolean won) {
+        toggleButtons(false);
+        if (!won) {
+            gameState.lose();
+        }
+    }
 }

@@ -53,9 +53,7 @@
 	-fx-background-color: #FFFFFF;
 }
 
-.background{
-   -fx-background-color: linear-gradient(from 750.0px 750.0px to 1000.0px 1000.0px, #cccc99, #669933);
-}
+
 
 .level-body {
 	-fx-background-radius: 15.0px;

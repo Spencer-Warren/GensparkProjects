@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -22,7 +23,15 @@ public abstract class DefaultScene {
 		this.stage = stage;
 		this.root = root; // the root pane we are adding elements too
 		root.getStylesheets().add("Main.css");
-		root.getStyleClass().add("background");
+		BackgroundImage background =
+								new BackgroundImage(
+										new Image("images/forest.jpg"),
+										BackgroundRepeat.NO_REPEAT,
+										BackgroundRepeat.NO_REPEAT,
+										BackgroundPosition.DEFAULT,
+										new BackgroundSize(1.0, 1.0, true, true, false, false));
+		Background background1 = new Background(background);
+		root.setBackground(background1);
 		root.setPadding(new Insets(20));
 		scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 	}

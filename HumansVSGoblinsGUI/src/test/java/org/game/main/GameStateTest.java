@@ -1,15 +1,16 @@
 package org.game.main;
 
-import org.game.characters.Human;
+import org.game.characters.Entity;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.util.Scanner;
+import java.io.PrintStream;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,11 +18,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class GameStateTest {
 
     private static final InputStream original = System.in;
+    private static final PrintStream originalOut = System.out;
+    private static ByteArrayOutputStream baos;
+
+    @BeforeEach
+    void setUp() {
+        baos = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(baos));
+    }
+
 
     @AfterEach
     void tearDown() {
         // Restore System.in
         System.setIn(original);
+        System.setOut(originalOut);
     }
 
     @Test
@@ -37,13 +48,10 @@ class GameStateTest {
     void runGame() {
         GameState gameState = new GameState();
         gameState.initializeGame();
+//        UserInput.setIn(new Scanner(newIn));
 
-        String input = String.format("q%n");
-        InputStream newIn = new ByteArrayInputStream(input.getBytes());
-
-        UserInput.setIn(new Scanner(newIn));
-
-        assertEquals(GamePlayState.END, gameState.getGameState(), "Game state should be END");
+//        assertEquals(GamePlayState.END, gameState.getGameState(), "Game state should be END");
+        assertNotNull(gameState.getMap(), "Map should not be null");
     }
 
     @ParameterizedTest
@@ -52,13 +60,8 @@ class GameStateTest {
         GameState gameState = new GameState();
         gameState.initializeGame();
 
-        String inputString = String.format(input);
-
-        InputStream newIn = new ByteArrayInputStream(inputString.getBytes());
-        UserInput.setIn(new Scanner(newIn));
-
         for (int i = 0; i < moves; i++) {
-            gameState.handleUserInput();
+            gameState.handleUserInput(input);
         }
 
         int actualY = gameState.getHuman().getY();
@@ -70,26 +73,49 @@ class GameStateTest {
 
     private static Stream <Arguments> testHandleInputDirections() {
         return Stream.of(
-                Arguments.of("n%n", 1, 0, 0),
-                Arguments.of("w%n", 1, 0, 0),
-                Arguments.of("s%n", 1, 0, 1),
-                Arguments.of("e%n", 1, 1, 0)
+                Arguments.of("n", 1, 0, 0),
+                Arguments.of("w", 1, 0, 0),
+                Arguments.of("s", 1, 0, 1),
+                Arguments.of("e", 1, 1, 0)
         );
     }
 
     @Test
-    void handleInputInvalid() {
+    void testInvalidInput() {
         GameState gameState = new GameState();
         gameState.initializeGame();
-        Human human = gameState.getHuman();
 
-        String input = String.format("i%nq%n");
-        InputStream newIn = new ByteArrayInputStream(input.getBytes());
-
-        UserInput.setIn(new Scanner(newIn));
-
-        gameState.handleUserInput();
-        assertEquals(gameState.getHuman().toString(), human.toString(), "Human should not have moved");
+        gameState.handleUserInput("x");
+        assertTrue(baos.toString().contains("Invalid input"), "Invalid input should be printed");
     }
 
+    @Test
+    void removeCharacterTest() {
+        GameState gameState = new GameState();
+        gameState.initializeGame();
+
+        gameState.removeCharacter(gameState.getCharacters().get(0));
+        assertEquals(5, gameState.getCharacters().size(), "There should be 5 goblins");
+    }
+
+    @Test
+    void testForCombatTest() {
+        GameState gameState = new GameState();
+        gameState.initializeGame();
+        assertEquals(0, gameState.testForCombat().length, "There should be no combat");
+    }
+
+    @Test
+    void testForCombat2() {
+        GameState gameState = new GameState();
+        gameState.initializeGame();
+
+        gameState.getHuman().setX(1);
+        gameState.getHuman().setY(0);
+        Entity golin = gameState.getCharacters().get(1);
+        golin.setX(1);
+        golin.setY(0);
+        gameState.getMap().updateMap(gameState.getCharacters());
+        assertNotNull(gameState.testForCombat(), "There should be combat");
+    }
 }

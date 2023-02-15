@@ -98,6 +98,14 @@ class EntityTest {
     }
 
     @Test
+    void getMaxHealthTest() {
+        Entity toughEntity = new Entity(0, 0, 20, 2);
+        assertEquals(20, toughEntity.getMaxHealth(), "MaxHealth should be 10");
+    }
+
+
+
+    @Test
     void giveWeapon() {
         Weapon sword = new Weapon("Sword", 1, 10);
         entity.giveWeapon(sword);

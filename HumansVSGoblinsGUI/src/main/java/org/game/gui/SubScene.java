@@ -56,6 +56,10 @@ public abstract class SubScene extends DefaultScene {
 	public void bindButtons() {
 		this.bindButtonToScene(back, parentScene);
 	}
+
+	public DefaultScene getParentScene() {
+		return parentScene;
+	}
 	
 	
 }

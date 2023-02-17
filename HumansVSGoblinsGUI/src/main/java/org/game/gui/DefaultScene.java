@@ -40,6 +40,10 @@ public abstract class DefaultScene {
 		return scene;
 	}
 
+	public Stage getStage() {
+		return stage;
+	}
+
 	public Pane getRoot() {
 		return root;
 	}

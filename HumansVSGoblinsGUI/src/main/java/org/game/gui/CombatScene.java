@@ -94,8 +94,8 @@ public class CombatScene  {
 
     public void printCombatInfo() {
         String format = "%s health: %d / %d\n";
-        String humanInfo = String.format(format, human.getSimpleName(), "Your", human.getHealth(), human.getMaxHealth());
-        String goblinInfo = String.format(format, goblin.getSimpleName(), "Goblin", goblin.getHealth(), goblin.getMaxHealth());
+        String humanInfo = String.format(format, "Your", human.getHealth(), human.getMaxHealth());
+        String goblinInfo = String.format(format, "Goblin", goblin.getHealth(), goblin.getMaxHealth());
         combatInfo.append(humanInfo);
         combatInfo.append(goblinInfo);
     }

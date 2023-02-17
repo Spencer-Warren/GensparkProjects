@@ -71,7 +71,4 @@ public class GameState {
         characters.remove(character);
     }
 
-    public void lose() {
-        // TODO: Implement this
-    }
 }

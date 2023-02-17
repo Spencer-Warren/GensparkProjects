@@ -2,7 +2,9 @@ package org.game.gui;
 
 import javafx.geometry.Insets;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -151,12 +153,24 @@ public class GameScene extends SubScene {
         }
     }
 
+    private void resetGame() {
+        gameState.initializeGame();
+        updateMap();
+        updateStatus();
+        toggleButtons(true);
+    }
+
     public void endCombat(boolean won) {
         Entity[] combatants = gameState.testForCombat();
         if (won) {
             gameState.removeCharacter(combatants[1]);
+            if (gameState.getCharacters().size() == 1) {
+                end(true);
+                return;
+            }
         } else {
             end(false);
+            return;
         }
         toggleButtons(true);
         updateMap();
@@ -164,8 +178,26 @@ public class GameScene extends SubScene {
 
     private void end(boolean won) {
         toggleButtons(false);
-        if (!won) {
-            gameState.lose();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Game Over");
+        alert.setHeaderText(won ? "You won!" : "You lost!");
+        alert.setContentText("What would you like to do?");
+
+        ButtonType playAgainButton = new ButtonType("Play Again");
+        ButtonType exitButton = new ButtonType("Exit");
+
+        alert.getButtonTypes().setAll(playAgainButton, exitButton);
+        alert.showAndWait();
+        switch (alert.getResult().getText()) {
+            case "Play Again":
+                resetGame();
+                break;
+            case "Exit":
+                resetGame();
+                getStage().setScene(getParentScene().getScene());
+                break;
+            default:
+                break;
         }
     }
 }
